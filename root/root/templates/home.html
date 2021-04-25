@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "css/upload_style.css" %}">
+</head>
+<body>
+<div id = "boxes">
+    <div id = "leftbox">
+<h2>FILE VILLA</h2>
+
+<table id="t01">
+  <tr>
+    <th>Uploaded Files</th>
+      <th>Content Type</th>
+  </tr>
+    {% for blob in blobs %}
+  <tr>
+      <td>{{ blob.key }}</td>
+      <td><a href="/home?name={{blob.key}}&content_type={{blob.content_type}}">View</a></td>
+  </tr>
+    {% endfor %}
+</table>
+    </div>
+    <div id = "rightbox">
+    <form enctype="multipart/form-data" method="POST" action={%url 'home'%} >
+    <div class="frame">
+        <div class="center">
+            <div class="title">
+                <h1>Drop file to upload</h1>
+            </div>
+            {% csrf_token %}
+            <div class="dropzone">
+                <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                <input type="file" name="filevilla" class="upload-input" />
+            </div>
+
+            <button type="submit" class="btn" name="uploadbutton">Upload file</button>
+
+        </div>
+    </div>
+    </form>
+    </div>
+</body>
+</html>
