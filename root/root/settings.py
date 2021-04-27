@@ -28,7 +28,7 @@ SECRET_KEY = 't!vzs*(**hxq@_bv3$42610t(zxd70iy_0y!f!cl*=cysyy@!k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 config = configparser.ConfigParser()
 config_file = "config.cfg"
@@ -93,6 +93,7 @@ DATABASES = {
         'HOST': config.get('database', 'host'),
         'USER': config.get('database', 'user'),
         'PASSWORD': config.get('database', 'password'),
+        'PORT': config.get('database', 'port'),
     }
 }
 
