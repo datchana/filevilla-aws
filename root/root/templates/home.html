@@ -3,10 +3,10 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Filevilla - Home</title>
     <link rel="stylesheet" href="{% static "css/upload_style.css" %}">
 </head>
-<body>
+<body background="{% static "images/bg.jpg" %}">
 <div id = "boxes">
     <div id = "leftbox">
 <h2>FILE VILLA</h2>
@@ -25,6 +25,7 @@
 </table>
     </div>
     <div id = "rightbox">
+        <b><h3><a href="/logout">LOG OUT</a></h3></b>
     <form enctype="multipart/form-data" method="POST" action={%url 'home'%} >
     <div class="frame">
         <div class="center">

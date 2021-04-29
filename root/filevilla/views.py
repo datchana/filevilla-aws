@@ -13,8 +13,7 @@ from django.core.files.base import ContentFile
 import boto3
 from botocore.exceptions import ClientError
 import mimetypes
-
-from io import BytesIO
+from django.conf import settings
 import os
 
 # Create your views here.
@@ -85,12 +84,11 @@ class FileVilla(LoginRequiredMixin, View):
   template_name = 'home.html'
 
   def get(self, request):
-    s3 = boto3.resource('s3', aws_access_key_id='AKIAQ5T7BZD6XXJZMWM6',
-                        aws_secret_access_key='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')
+    s3 = boto3.resource('s3', aws_access_key_id=settings.AWS_ACCESS_KEY,
+                        aws_secret_access_key=settings.AWS_SECRET_KEY)
     name = request.GET.get('name')
     bucket = s3.Bucket('filevilla-bucket')
     blobs = []
-    content_type = request.GET.get('content_type')
 
     for my_bucket_object in bucket.objects.all():
       blobs.append(my_bucket_object)
@@ -103,6 +101,7 @@ class FileVilla(LoginRequiredMixin, View):
       with open(str(BASE_DIR) + '/tmp/' + name, 'rb') as file:
         data = file.read()
       content_type = mimetypes.MimeTypes().guess_type(str(BASE_DIR) + '/tmp/' + name)[0]
+      print (content_type)
       http_response = HttpResponse(data)
       http_response['content-type'] = content_type
       http_response['content-length'] = len(data)
@@ -130,3 +129,8 @@ class FileVilla(LoginRequiredMixin, View):
 
     except:
       return render(request, self.template_name)
+
+
+def logoff(request):
+  logout(request)
+  return HttpResponseRedirect('/')

@@ -145,4 +145,8 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 
+#AWS Credentials
+AWS_ACCESS_KEY = config.get('aws', 'access_key')
+AWS_SECRET_KEY = config.get('aws', 'secret_key')
+
 
